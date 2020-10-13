@@ -1,0 +1,39 @@
+﻿syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "ServiceProto.Employee";
+
+service ProtoEmployee{
+	rpc AddEmployee(AddEmployeeMessage) returns (SuccessReply){}
+	rpc GetEmployeeById(GetByIdRequest) returns (EmployeeResponse){}
+}
+
+message AddEmployeeMessage{
+	string firstName = 1;
+	string lastName = 2;
+	google.protobuf.Timestamp JoinDate = 3;
+	int64 departementId = 4;
+}
+
+message SuccessReply{
+	bool success = 1;
+	string reason = 2;
+}
+
+message GetByIdRequest{
+	int64 id = 1;
+}
+
+message EmployeeResponse{
+	int64 id = 1;
+	string firstName = 2;
+	string lastName = 3;
+	google.protobuf.Timestamp JoinDate = 4;
+	EmployeeDepartementResponse departement = 5;
+}
+
+message EmployeeDepartementResponse{
+	int64 id = 1;
+	string name = 2;
+	string location = 3;
+}

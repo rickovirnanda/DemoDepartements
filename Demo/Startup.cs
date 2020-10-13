@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Demo.Contracts;
 using Demo.Repos;
 using Demo.Services;
+using DemoService.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -70,6 +71,7 @@ namespace Demo
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<DepartementService>();
+                endpoints.MapGrpcService<EmployeeService>();
                 endpoints.MapControllers();
             });
 

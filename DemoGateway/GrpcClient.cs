@@ -10,7 +10,7 @@ namespace DemoGateway
 {
     public class GrpcClient : IGrpcClient
     {
-        public GrpcChannel DepartementChannel { get; }
+        public GrpcChannel DemoChannel { get; }
 
         public GrpcClient()
         {
@@ -18,7 +18,7 @@ namespace DemoGateway
             httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
             HttpClient httpClient = new HttpClient(httpClientHandler);
 
-            DepartementChannel = GrpcChannel.ForAddress("https://localhost:5000", new GrpcChannelOptions { HttpClient = httpClient });
+            DemoChannel = GrpcChannel.ForAddress("https://localhost:5000", new GrpcChannelOptions { HttpClient = httpClient });
         }
     }
 }

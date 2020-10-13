@@ -15,7 +15,7 @@ namespace DemoGateway.Services
         public readonly ProtoDepartement.ProtoDepartementClient _departement;
         public DepartementService(IGrpcClient client)
         {
-            _departement = new ProtoDepartement.ProtoDepartementClient(client.DepartementChannel);
+            _departement = new ProtoDepartement.ProtoDepartementClient(client.DemoChannel);
         }
 
         public SuccessResponse AddDepartement(CreateDepartementVM newDepartement)
@@ -35,7 +35,25 @@ namespace DemoGateway.Services
 
         public DepartementDetailVM GetDepartementById(long id)
         {
-            throw new NotImplementedException();
+            var result = _departement.GetDepartementById(new GetByIdRequest { Id = id });
+
+            var departement = new DepartementDetailVM
+            {
+                Id = (int)result.Id,
+                Name = result.Name,
+                Location = result.Location
+            };
+
+            departement.Employees.AddRange(
+                result.Employees.Select(
+                    x => new EmployeeVM
+                    {
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        JoinDate = x.JoinDate.ToDateTime()
+                    }));
+
+            return departement;
         }
 
         public List<DepartementVM> GetDepartements(int page, int itemsPerPage)

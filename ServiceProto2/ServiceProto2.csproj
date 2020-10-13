@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <None Remove="Departement.proto" />
+    <None Remove="Employee.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <Protobuf Include="Departement.proto" ProtoCompile="true" />
+    <Protobuf Include="Employee.proto" />
   </ItemGroup>
 
 </Project>

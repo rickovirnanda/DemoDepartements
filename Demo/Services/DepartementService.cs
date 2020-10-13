@@ -45,7 +45,6 @@ namespace Demo.Services
                 Id = result.Id,
                 Name = result.Name,
                 Location = result.Location,
-                
             };
 
             departementResponse.Employees.AddRange(

@@ -15,11 +15,9 @@ namespace DemoGateway.Controllers
     [ApiController]
     public class DepartementController : ControllerBase
     {
-        public readonly ProtoDepartement.ProtoDepartementClient _departement;
         private readonly IDepartementService _departementService;
-        public DepartementController(IGrpcClient client, IDepartementService departementService)
+        public DepartementController(IDepartementService departementService)
         {
-            _departement = new ProtoDepartement.ProtoDepartementClient(client.DepartementChannel);
             _departementService = departementService;
         }
 
@@ -35,9 +33,9 @@ namespace DemoGateway.Controllers
         }
 
         [HttpGet("{Id:long}")]
-        public ActionResult<DepartementResponse> GetById(long Id)
+        public ActionResult<DepartementDetailVM> GetById(long Id)
         {
-            var result = _departement.GetDepartementById(new GetByIdRequest { Id = Id });
+            var result = _departementService.GetDepartementById(Id);
 
             return result;
         }

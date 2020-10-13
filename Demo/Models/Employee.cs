@@ -18,5 +18,10 @@ namespace Demo.Models
         [ForeignKey("departement_id")]
         public long DepartementId { get; set; }
         public Departement Departement { get; set; }
+
+        public Employee()
+        {
+            Departement = new Departement();
+        }
     }
 }

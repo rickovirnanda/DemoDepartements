@@ -8,6 +8,6 @@ namespace DemoGateway.Contracts
 {
     public interface IGrpcClient
     {
-        GrpcChannel DepartementChannel { get; }
+        GrpcChannel DemoChannel { get; }
     }
 }
