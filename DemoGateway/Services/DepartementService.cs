@@ -87,7 +87,18 @@ namespace DemoGateway.Services
 
         public SuccessResponse UpdateDepartement(DepartementVM newDepartement)
         {
-            throw new NotImplementedException();
+            var result = _departement.UpdateDepartement(new DepartementMessage
+            {
+                Id = newDepartement.Id,
+                Name = newDepartement.Name,
+                Location = newDepartement.Location
+            });
+
+            return new SuccessResponse
+            {
+                Success = result.Success,
+                Reason = result.Reason
+            };
         }
     }
 }

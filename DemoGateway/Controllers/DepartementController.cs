@@ -44,6 +44,7 @@ namespace DemoGateway.Controllers
             }
             catch(RpcException ex)
             {
+                //rpc return fail
                 return NotFound(ex.Status.Detail);
             }
         }
@@ -60,6 +61,17 @@ namespace DemoGateway.Controllers
         public ActionResult<string> Delete(long Id)
         {
             var result = _departementService.DeleteDepartement(Id);
+
+            if (result.Success)
+                return Ok("Success");
+            else
+                return BadRequest(result.Reason);
+        }
+
+        [HttpPut]
+        public ActionResult<string> Update([FromBody]DepartementVM departement)
+        {
+            var result = _departementService.UpdateDepartement(departement);
 
             if (result.Success)
                 return Ok("Success");

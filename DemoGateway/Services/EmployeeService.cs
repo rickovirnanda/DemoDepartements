@@ -61,9 +61,20 @@ namespace DemoGateway.Services
             return employee;
         }
 
-        public List<DepartementVM> GetEmployees(int page, int itemsPerPage)
+        public List<EmployeeVM> GetEmployees(int page, int itemsPerPage)
         {
-            throw new NotImplementedException();
+            var result = _employee.GetEmployees(new GetEmployeeMessage { Page = page, ItemsPerPage = itemsPerPage });
+
+            var employees = result.Employees.Select(x => new EmployeeVM
+            {
+                FirstName = x.FirstName,
+                Id = x.Id,
+                LastName = x.LastName,
+                JoinDate = x.JoinDate.ToDateTime(),
+                DepartementId = x.DepartementId
+            }).ToList();
+
+            return employees;
         }
     }
 }

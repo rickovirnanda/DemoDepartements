@@ -30,13 +30,10 @@ namespace DemoService.CQRS.Commands.Departements
                 result.Reason = $"Departement with ID'{command.Payload.Id}' not found.";
             else
             {
-                var newDepartement = new Departement
-                {
-                    Name = command.Payload.Name,
-                    Location = command.Payload.Location
-                };
+                departement.Name = command.Payload.Name;
+                departement.Location = command.Payload.Location;
 
-                _repository.Update(newDepartement);
+                _repository.Update(departement);
                 result.Success = true;
             }
 

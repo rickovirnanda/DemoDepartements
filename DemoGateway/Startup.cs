@@ -24,8 +24,8 @@ namespace DemoGateway
             services.AddSingleton<IGrpcClient, GrpcClient>();
 
             // Service
-            services.AddScoped<IDepartementService, DepartementService>();
-            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddSingleton<IDepartementService, DepartementService>();
+            services.AddSingleton<IEmployeeService, EmployeeService>();
 
             // Swagger
             services.AddSwaggerGen();

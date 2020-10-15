@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="CQRS\Commands\Departements\CreateDepartementCommand.cs~RF1566d8f.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EFCore.NamingConventions" Version="1.1.0" />
     <PackageReference Include="Grpc.AspNetCore.Server" Version="2.32.0" />
     <PackageReference Include="MediatR" Version="8.1.0" />

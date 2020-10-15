@@ -10,8 +10,8 @@ namespace DemoGateway.Data
     public interface IEmployeeService
     {
         SuccessResponse AddEmployee(CreateEmployeeVM newEmployee);
-
-        List<DepartementVM> GetEmployees(int page, int itemsPerPage);
+        SuccessResponse UpdateEmployee(EmployeeVM employee);
+        List<EmployeeVM> GetEmployees(int page, int itemsPerPage);
 
         EmployeeDetailVM GetEmployeeById(long id);
 

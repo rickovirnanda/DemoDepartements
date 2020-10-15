@@ -6,6 +6,25 @@ option csharp_namespace = "ServiceProto.Employee";
 service ProtoEmployee{
 	rpc AddEmployee(AddEmployeeMessage) returns (SuccessReply){}
 	rpc GetEmployeeById(GetByIdRequest) returns (EmployeeResponse){}
+	rpc UpdateEmployee(EmployeeMessage) returns (SuccessReply){}
+	rpc DeleteEmployee(GetByIdRequest) returns (SuccessReply){}
+	rpc GetEmployees(GetEmployeeMessage) returns (EmployeeListResponse){}
+}
+message GetEmployeeMessage{
+	int64 page = 1;
+	int64 itemsPerPage = 2;
+}
+
+message EmployeeListResponse{
+	repeated EmployeeMessage Employees = 1;
+}
+
+message EmployeeMessage{
+	int64 id = 1;
+	string firstName = 2;
+	string lastName = 3;
+	google.protobuf.Timestamp JoinDate = 4;
+	int64 departementId = 5;
 }
 
 message AddEmployeeMessage{

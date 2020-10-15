@@ -35,6 +35,28 @@ namespace DemoService.Services
             return new SuccessReply { Success = result.Success, Reason = result.Reason };
         }
 
+        public override async Task<EmployeeListResponse> GetEmployees(GetEmployeeMessage request, ServerCallContext context)
+        {
+            var result = await _mediator.Send(new GetEmployeeQuery
+            {
+                Page = (int)request.Page,
+                ItemsPerPage = (int)request.ItemsPerPage
+            });
+
+            var employeeListResponse = new EmployeeListResponse { };
+
+            employeeListResponse.Employees.AddRange(result.Select(x => new EmployeeMessage
+            {
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                DepartementId = x.DepartementId,
+                JoinDate = Timestamp.FromDateTime(x.JoinDate.ToUniversalTime()),
+                Id = x.Id
+            }));
+
+            return employeeListResponse;
+        }
+
         public override async Task<EmployeeResponse> GetEmployeeById(GetByIdRequest request, ServerCallContext context)
         {
             var result = await _mediator.Send(new GetEmployeeByIdQuery { Id = request.Id });
