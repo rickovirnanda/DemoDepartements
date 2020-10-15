@@ -15,6 +15,8 @@ namespace DemoGateway.Data
 
         DepartementDetailVM GetDepartementById(long id);
 
+        SuccessResponse UpdateDepartement(DepartementVM newDepartement);
+
         SuccessResponse DeleteDepartement(long id);
     }
 }

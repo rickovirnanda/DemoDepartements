@@ -17,5 +17,10 @@ namespace Demo.Repos
     public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
     {
         public EmployeeRepository(DemoContext context) : base(context) { }
+
+        public override Employee GetById(long id)
+        {
+            return Context.Set<Employee>().Include(x => x.Departement).SingleOrDefault(x => x.Id == id);
+        }
     }
 }

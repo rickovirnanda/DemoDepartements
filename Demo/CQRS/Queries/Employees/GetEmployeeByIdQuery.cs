@@ -32,11 +32,6 @@ namespace DemoService.CQRS.Queries.Employees
                 throw new NotImplementedException();
             else
             {
-                var departement = _departementRepository.GetById(employee.DepartementId);
-
-                if(departement == null)
-                    throw new NotImplementedException();
-
                 return Task.Run(() => new EmployeeDetailVM
                 {
                     Id = employee.Id,
@@ -46,9 +41,9 @@ namespace DemoService.CQRS.Queries.Employees
                     DepartementId = employee.DepartementId,
                     Department = new DepartementVM
                     {
-                        Id = departement.Id,
-                        Location = departement.Location,
-                        Name = departement.Name
+                        Id = employee.Departement.Id,
+                        Location = employee.Departement.Location,
+                        Name = employee.Departement.Name
                     }
                 });
             }

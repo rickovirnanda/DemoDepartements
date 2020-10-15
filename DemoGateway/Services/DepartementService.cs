@@ -2,6 +2,8 @@
 using DemoGateway.Data;
 using DemoGateway.ViewModel;
 using DemoGateway.ViewModels;
+using Grpc.Core;
+using Microsoft.AspNetCore.Mvc;
 using ServiceProto.Departement;
 using System;
 using System.Collections.Generic;
@@ -30,33 +32,60 @@ namespace DemoGateway.Services
 
         public SuccessResponse DeleteDepartement(long id)
         {
-            throw new NotImplementedException();
+            var result = _departement.DeleteDepartement(new GetByIdRequest { Id = id });
+
+            return new SuccessResponse
+            {
+                Success = result.Success,
+                Reason = result.Reason
+            };
         }
 
         public DepartementDetailVM GetDepartementById(long id)
         {
-            var result = _departement.GetDepartementById(new GetByIdRequest { Id = id });
-
-            var departement = new DepartementDetailVM
+            try
             {
-                Id = (int)result.Id,
-                Name = result.Name,
-                Location = result.Location
-            };
+                var result = _departement.GetDepartementById(new GetByIdRequest { Id = id });
 
-            departement.Employees.AddRange(
-                result.Employees.Select(
-                    x => new EmployeeVM
-                    {
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        JoinDate = x.JoinDate.ToDateTime()
-                    }));
+                var departement = new DepartementDetailVM
+                {
+                    Id = (int)result.Id,
+                    Name = result.Name,
+                    Location = result.Location
+                };
 
-            return departement;
+                departement.Employees.AddRange(
+                    result.Employees.Select(
+                        x => new EmployeeVM
+                        {
+                            FirstName = x.FirstName,
+                            LastName = x.LastName,
+                            JoinDate = x.JoinDate.ToDateTime()
+                        }));
+
+                return departement;
+            }
+            catch(RpcException ex)
+            {
+                throw ex;
+            }
         }
 
         public List<DepartementVM> GetDepartements(int page, int itemsPerPage)
+        {
+            var result = _departement.GetDepartement(new GetDepartementMessage { Page = page, ItemsPerPage = itemsPerPage });
+
+            var departements = result.Departements.Select(x => new DepartementVM
+            {
+                Id = (int)x.Id,
+                Name = x.Name,
+                Location = x.Location
+            }).ToList();
+
+            return departements;
+        }
+
+        public SuccessResponse UpdateDepartement(DepartementVM newDepartement)
         {
             throw new NotImplementedException();
         }

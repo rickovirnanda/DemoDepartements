@@ -1,5 +1,6 @@
 ﻿using Demo.Contracts;
 using Demo.ViewModels;
+using Grpc.Core;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace Demo.CQRS.Queries
             var departement = _repository.GetById(query.Id);
 
             if (departement == null)
-                throw new NullReferenceException();
+                throw new RpcException(new Status(StatusCode.NotFound, "Data not found"));
             else
                 return Task.Run(() => new DepartementDetailVM
                 {

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DemoGateway.Contracts;
 using DemoGateway.Data;
 using DemoGateway.ViewModels;
+using Grpc.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceProto.Departement;
@@ -35,9 +36,35 @@ namespace DemoGateway.Controllers
         [HttpGet("{Id:long}")]
         public ActionResult<DepartementDetailVM> GetById(long Id)
         {
-            var result = _departementService.GetDepartementById(Id);
+            try
+            {
+                var result = _departementService.GetDepartementById(Id);
+
+                return result;
+            }
+            catch(RpcException ex)
+            {
+                return NotFound(ex.Status.Detail);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult<List<DepartementVM>> GetList([FromQuery] int page, [FromQuery] int itemsPerPage)
+        {
+            var result = _departementService.GetDepartements(page, itemsPerPage);
 
             return result;
+        }
+
+        [HttpDelete("{Id:long}")]
+        public ActionResult<string> Delete(long Id)
+        {
+            var result = _departementService.DeleteDepartement(Id);
+
+            if (result.Success)
+                return Ok("Success");
+            else
+                return BadRequest(result.Reason);
         }
     }
 }

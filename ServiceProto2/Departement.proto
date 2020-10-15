@@ -6,6 +6,24 @@ option csharp_namespace = "ServiceProto.Departement";
 service ProtoDepartement{
 	rpc AddDepartement(AddDepartementMessage) returns (SuccessReply){}
 	rpc GetDepartementById(GetByIdRequest) returns (DepartementResponse){}
+	rpc GetDepartement(GetDepartementMessage) returns (DepartementListResponse){}
+	rpc DeleteDepartement(GetByIdRequest) returns (SuccessReply){}
+	rpc UpdateDepartement(DepartementMessage) returns (SuccessReply){}
+}
+
+message GetDepartementMessage{
+	int64 page = 1;
+	int64 itemsPerPage = 2;
+}
+
+message DepartementListResponse{
+	repeated DepartementMessage departements = 1;
+}
+
+message DepartementMessage{
+	int64 id = 1;
+	string name = 2;
+	string location = 3;
 }
 
 message AddDepartementMessage{

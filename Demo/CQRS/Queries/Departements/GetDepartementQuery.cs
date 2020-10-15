@@ -29,11 +29,11 @@ namespace Demo.CQRS.Queries
             {
                 Id = x.Id,
                 Name = x.Name,
-                Location = x.Location
+                Location = x.Location,
             })
-                                             .Skip(query.ItemsPerPage * (query.Page - 1))
-                                             .Take(query.ItemsPerPage)
-                                             .ToList()
+            .Skip(query.ItemsPerPage * (query.Page - 1))
+            .Take(query.ItemsPerPage)
+            .ToList()
             );
         }
     }
