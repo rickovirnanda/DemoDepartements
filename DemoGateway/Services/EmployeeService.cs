@@ -1,8 +1,8 @@
 ﻿using DemoGateway.Contracts;
-using DemoGateway.Data;
 using DemoGateway.ViewModel;
 using DemoGateway.ViewModels;
 using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
 using ServiceProto.Employee;
 using System;
 using System.Collections.Generic;
@@ -37,28 +37,41 @@ namespace DemoGateway.Services
 
         public SuccessResponse DeleteEmployee(long id)
         {
-            throw new NotImplementedException();
+            var result = _employee.DeleteEmployee(new GetByIdRequest { Id = id });
+
+            return new SuccessResponse
+            {
+                Success = result.Success,
+                Reason = result.Reason
+            };
         }
 
         public EmployeeDetailVM GetEmployeeById(long id)
         {
-            var result = _employee.GetEmployeeById(new GetByIdRequest { Id = id });
-
-            var employee = new EmployeeDetailVM
+            try
             {
-                Id = result.Id,
-                FirstName = result.FirstName,
-                LastName = result.LastName,
-                JoinDate = result.JoinDate.ToDateTime(),
-                Department = new DepartementVM
-                {
-                    Id = (int)result.Departement.Id,
-                    Location = result.Departement.Location,
-                    Name = result.Departement.Location
-                }
-            };
+                var result = _employee.GetEmployeeById(new GetByIdRequest { Id = id });
 
-            return employee;
+                var employee = new EmployeeDetailVM
+                {
+                    Id = result.Id,
+                    FirstName = result.FirstName,
+                    LastName = result.LastName,
+                    JoinDate = result.JoinDate.ToDateTime(),
+                    Department = new DepartementVM
+                    {
+                        Id = (int)result.Departement.Id,
+                        Location = result.Departement.Location,
+                        Name = result.Departement.Location
+                    }
+                };
+
+                return employee;
+            }
+            catch(RpcException ex)
+            {
+                throw ex;
+            }
         }
 
         public List<EmployeeVM> GetEmployees(int page, int itemsPerPage)
@@ -75,6 +88,24 @@ namespace DemoGateway.Services
             }).ToList();
 
             return employees;
+        }
+
+        public SuccessResponse UpdateEmployee(EmployeeVM employee)
+        {
+            var result = _employee.UpdateEmployee(new EmployeeMessage
+            {
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                JoinDate = Timestamp.FromDateTime(employee.JoinDate.ToUniversalTime()),
+                DepartementId = employee.DepartementId,
+                Id = employee.Id
+            });
+
+            return new SuccessResponse
+            {
+                Success = result.Success,
+                Reason = result.Reason
+            };
         }
     }
 }

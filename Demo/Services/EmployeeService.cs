@@ -76,5 +76,28 @@ namespace DemoService.Services
 
             return employeeResponse;
         }
+
+        public override async Task<SuccessReply> UpdateEmployee(EmployeeMessage request, ServerCallContext context)
+        {
+            var result = await _mediator.Send(new UpdateEmployeeCommand
+            {
+                Payload = new EmployeeVM
+                {
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    JoinDate = request.JoinDate.ToDateTime(),
+                    Id = request.Id,
+                    DepartementId = request.DepartementId                }
+            });
+
+            return new SuccessReply { Reason = result.Reason, Success = result.Success };
+        }
+
+        public override async Task<SuccessReply> DeleteEmployee(GetByIdRequest request, ServerCallContext context)
+        {
+            var result = await _mediator.Send(new DeleteEmployeeCommand { Id = request.Id });
+
+            return new SuccessReply { Success = result.Success, Reason = result.Reason };
+        }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DemoGateway.Contracts;
-using DemoGateway.Data;
 using DemoGateway.ViewModels;
 using Grpc.Core;
 using Microsoft.AspNetCore.Http;

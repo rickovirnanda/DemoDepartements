@@ -1,6 +1,7 @@
 ﻿using Demo.Contracts;
 using Demo.CQRS.Queries;
 using Demo.ViewModels;
+using Grpc.Core;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,12 @@ namespace DemoService.CQRS.Queries.Employees
             _employeeRepository = employeeRepository;
             _departementRepository = departementRepository;
         }
-        public Task<EmployeeDetailVM> Handle(GetEmployeeByIdQuery request, CancellationToken cancellationToken)
+        public Task<EmployeeDetailVM> Handle(GetEmployeeByIdQuery query, CancellationToken cancellationToken)
         {
-            var employee = _employeeRepository.GetById(request.Id);
+            var employee = _employeeRepository.GetById(query.Id);
 
-            if(employee == null)
-                throw new NotImplementedException();
+            if (employee == null)
+                throw new RpcException(new Status(StatusCode.NotFound, "Data not found"));
             else
             {
                 return Task.Run(() => new EmployeeDetailVM

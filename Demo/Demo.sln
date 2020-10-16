@@ -5,11 +5,9 @@ VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoService", "DemoService.csproj", "{EED861D3-8D20-48DB-870F-4FC2D2C4B665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoGateway", "..\DemoGateway\DemoGateway.csproj", "{B648968D-54D0-4552-865D-27E3ADEC2E9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoGateway", "..\DemoGateway\DemoGateway.csproj", "{B648968D-54D0-4552-865D-27E3ADEC2E9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceProto", "..\ServiceProto\ServiceProto.csproj", "{1FF7D94C-09BF-4458-B498-1BD0FB6EF31B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceProto2", "..\ServiceProto2\ServiceProto2.csproj", "{695901E1-AC5D-4845-99B8-5CD8475CB023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceProto2", "..\ServiceProto2\ServiceProto2.csproj", "{695901E1-AC5D-4845-99B8-5CD8475CB023}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{B648968D-54D0-4552-865D-27E3ADEC2E9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B648968D-54D0-4552-865D-27E3ADEC2E9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B648968D-54D0-4552-865D-27E3ADEC2E9E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1FF7D94C-09BF-4458-B498-1BD0FB6EF31B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1FF7D94C-09BF-4458-B498-1BD0FB6EF31B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1FF7D94C-09BF-4458-B498-1BD0FB6EF31B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1FF7D94C-09BF-4458-B498-1BD0FB6EF31B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{695901E1-AC5D-4845-99B8-5CD8475CB023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{695901E1-AC5D-4845-99B8-5CD8475CB023}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{695901E1-AC5D-4845-99B8-5CD8475CB023}.Release|Any CPU.ActiveCfg = Release|Any CPU

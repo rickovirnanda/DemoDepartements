@@ -1,5 +1,4 @@
 ﻿using DemoGateway.Contracts;
-using DemoGateway.Data;
 using DemoGateway.ViewModel;
 using DemoGateway.ViewModels;
 using Grpc.Core;
@@ -22,7 +21,7 @@ namespace DemoGateway.Services
 
         public SuccessResponse AddDepartement(CreateDepartementVM newDepartement)
         {
-            var result =_departement.AddDepartement(new AddDepartementMessage { Name = newDepartement.Name, Location = newDepartement.Location });
+            var result = _departement.AddDepartement(new AddDepartementMessage { Name = newDepartement.Name, Location = newDepartement.Location });
             return new SuccessResponse
             {
                 Success = result.Success,
